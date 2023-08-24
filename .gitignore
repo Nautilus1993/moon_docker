@@ -1,2 +1,5 @@
 # ignore library source code
 *.zip
+
+# ignore exported images files
+./images/*
