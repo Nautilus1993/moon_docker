@@ -1,0 +1,60 @@
+version: '3'
+
+services:
+  navigation:
+    image: orin_nav:20230822
+    command: /usr/src/deploy/start_navigation.sh
+    runtime: nvidia
+    network_mode: "host"
+    environment:
+      - LD_LIBRARY_PATH=/opt/ros/noetic/lib
+      - DISPLAY=$DISPLAY
+      - NVIDIA_DRIVER_CAPABILITIES=all
+      - NVIDIA_VISIBLE_DEVICES=all
+      - LOG_PATH=/usr/src/deploy/
+      - ROS_PACKAGE_PATH=/opt/ros/noetic/share
+      - ROS_HOSTNAME=192.168.31.217
+      - ROS_MASTER_URI=http://192.168.31.187:11311
+    volumes:
+      - $DEV_WORKSPACE/lunar_ws/:/usr/src/app/
+      - $DEVOPS_WORKSPACE/navigation/:/usr/src/deploy/
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - /dev/nvidia0:/dev/nvidia0
+
+  orbslam3:
+    image: orin_nav:20230822
+    command: /usr/src/deploy/start_orbslam3.sh
+    runtime: nvidia
+    network_mode: "host"
+    environment:
+      - DISPLAY=$DISPLAY
+      - NVIDIA_DRIVER_CAPABILITIES=all
+      - NVIDIA_VISIBLE_DEVICES=all
+      - LOG_PATH=/usr/src/deploy/
+      - ROS_PACKAGE_PATH=/opt/ros/noetic/share
+      - ROS_HOSTNAME=192.168.31.217
+      - ROS_MASTER_URI=http://192.168.31.187:11311
+    volumes:
+      - $DEV_WORKSPACE/PANG_SLAM/:/usr/src/app/
+      - $DEVOPS_WORKSPACE/orbslam3/:/usr/src/deploy/
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - /dev/nvidia0:/dev/nvidia0
+
+  mapping:
+      image: orin_nav:20230822
+      command: /usr/src/deploy/start_orbslam3.sh
+      runtime: nvidia
+      network_mode: "host"
+      environment:
+        - DISPLAY=$DISPLAY
+        - NVIDIA_DRIVER_CAPABILITIES=all
+        - NVIDIA_VISIBLE_DEVICES=all
+        - LOG_PATH=/usr/src/deploy/
+        - ROS_PACKAGE_PATH=/opt/ros/noetic/share
+        - ROS_HOSTNAME=192.168.31.217
+        - ROS_MASTER_URI=http://192.168.31.187:11311
+      volumes:
+        - $DEV_WORKSPACE/PANG_SLAM/:/usr/src/app/
+        - $DEVOPS_WORKSPACE/orbslam3/:/usr/src/deploy/
+        - /tmp/.X11-unix:/tmp/.X11-unix
+        - /dev/nvidia0:/dev/nvidia0
