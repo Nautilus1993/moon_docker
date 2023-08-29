@@ -3,3 +3,6 @@
 
 # ignore exported images files
 ./images/*
+
+# ignore log file
+*.log

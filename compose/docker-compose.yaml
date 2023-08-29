@@ -41,11 +41,12 @@ services:
       - /dev/nvidia0:/dev/nvidia0
 
   mapping:
-      image: orin_nav:20230822
-      command: /usr/src/deploy/start_orbslam3.sh
+      image: orin_elas:20230824
+      command: /usr/src/deploy/start_mapping.sh
       runtime: nvidia
       network_mode: "host"
       environment:
+        - LD_LIBRARY_PATH=/opt/ros/noetic/lib
         - DISPLAY=$DISPLAY
         - NVIDIA_DRIVER_CAPABILITIES=all
         - NVIDIA_VISIBLE_DEVICES=all
@@ -54,7 +55,8 @@ services:
         - ROS_HOSTNAME=192.168.31.217
         - ROS_MASTER_URI=http://192.168.31.187:11311
       volumes:
-        - $DEV_WORKSPACE/PANG_SLAM/:/usr/src/app/
-        - $DEVOPS_WORKSPACE/orbslam3/:/usr/src/deploy/
+        - $DEV_WORKSPACE/:/usr/src/app/
+        - $DEV_WORKSPACE/opt/ros/noetic/:/opt/ros/noetic/
+        - $DEVOPS_WORKSPACE/mapping/:/usr/src/deploy/
         - /tmp/.X11-unix:/tmp/.X11-unix
         - /dev/nvidia0:/dev/nvidia0

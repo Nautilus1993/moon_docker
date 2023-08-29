@@ -21,7 +21,7 @@ export ROS_PACKAGE_PATH=${ROS_PACKAGE_PATH}:/usr/src/app/Examples_old/ROS/PANG_S
 
 # 导航相机 (当前的目录是 cd ./Examples_old/ROS/PANG_SLAM/)
 cd ./Examples_old/ROS/PANG_SLAM/
-./run.sh
+./run.sh 
 
 # 避障相机(当前的目录是 cd ./Examples_old/ROS/PANG_SLAM/)
 # ./Examples_old/ROS/PANG_SLAM/run_avoid.sh
