@@ -51,54 +51,5 @@ RUN apt update && apt install -y \
 RUN rosdep init && rosdep update
 RUN echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc && source ~/.bashrc
 
-# 在本地直接下载好安装包，以及安装过程中失效的文件
-# RUN curl -L https://github.com/opencv/opencv/archive/4.4.0.zip -o opencv-4.4.0.zip
-# RUN curl -L https://github.com/opencv/opencv_contrib/archive/4.4.0.zip -o opencv_contrib-4.4.0.zip
-# RUN curl -L https://gitlab.com/libeigen/eigen/-/archive/3.3.8/eigen-3.3.8.zip -o eigen-3.3.8.zip
-# RUN git clone --recursive https://github.com/stevenlovegrove/Pangolin.git
-
-# COPY ./opencv-4.4.0.zip ./opencv_contrib-4.4.0.zip ./eigen-3.3.8.zip ./Pangolin.zip ./ORB_SLAM3.zip $TMP_FOLDER
-#RUN unzip /tmp/opencv-4.4.0.zip -d $TMP_FOLDER \
-#    && unzip /tmp/opencv_contrib-4.4.0.zip -d $TMP_FOLDER \
-#    && unzip /tmp/eigen-3.3.8.zip -d $TMP_FOLDER \
-#    && unzip /tmp/Pangolin.zip -d $TMP_FOLDER \
-#    && unzip /tmp/ORB_SLAM3.zip -d $TMP_FOLDER
-# RUN unzip '/tmp/*.zip' -d $TMP_FOLDER
-
-# install opencv
-# RUN cd $TMP_FOLDER/opencv-4.4.0/build \
-#     && cmake \
-#         -D CMAKE_BUILD_TYPE=RELEASE \
-#         -D CMAKE_INSTALL_PREFIX=/opt/opencv \
-#         -D INSTALL_C_EXAMPLES=ON \
-#         -D INSTALL_PYTHON_EXAMPLES=ON \
-#         -D OPENCV_GENERATE_PKGCONFIG=ON \
-#         -D OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib-4.4.0/modules \
-#         -D BUILD_EXAMPLES=ON .. \
-#     && make -j $CORE_NUMBER \
-#     && make install
-
-# install Eigen 
-# RUN cd $TMP_FOLDER/eigen-3.3.8 \
-#     && mkdir build && cd build \
-#     && cmake .. \
-#     && make -j $CORE_NUMBER \
-#     && make install
-
-# install Pangolin
-# RUN cd $TMP_FOLDER/Pangolin \
-#    && mkdir build && cd build \
-#    && cmake .. \
-#    && make -j $CORE_NUMBER \
-#    && make install
-
-# install slam
-# RUN cd $TMP_FOLDER/ORB_SLAM3 && ./build.sh    
-
 #clean up 
 RUN rm -rf /var/lib/apt/lists/* && apt-get clean
-
-# Entry Point 
-# RUN mkdir -p /usr/src/app && echo 'source /opt/ros/noetic/setup.bash' >> ~/.bashrc
-# WORKDIR /usr/src/app
-
